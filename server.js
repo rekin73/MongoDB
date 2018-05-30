@@ -18,14 +18,27 @@ var servres = function (req, res) {
         switch (finishObj.akcja) {
             //dodanie nowego usera
 case "addUser":
-console.log(finishObj.login)
-opers.Insert(coll,{user:finishObj.login,password:finishObj.password})
+console.log(finishObj)
+opers.Insert(coll,{user:finishObj["content[login]"],password:finishObj["content[password]"]})
 break;
+
+
+
 case "refreshUser":
 
-break;
-case "deleteUser":
+opers.SelectAll(coll,function(data){
+    //console.log("callback")
+    //console.log( data);
+    
+    res.end(JSON.stringify({"action":finishObj.akcja, "users":data}))
+});
 
+
+break;
+
+
+case "deleteUser":
+opers.DeleteById()
 break;
 case "updateUser":
 
@@ -96,25 +109,21 @@ mongoClient.connect("mongodb://localhost/3ib1", function (err, db) {
     //tu można operować na utworzonej bazie danych db lub podstawić jej obiekt
     db.createCollection("zad1", function (err, coll) {
         
-        coll.insert({a:1}, function (err, result) {                
-            console.log(result)
-         });
-         console.log(coll)
+
+
      }) 
-     var data =
-{
-   a: "1",
-   b: "2",
-};
+
 
 var coll = db.collection("usersi")
-opers.Insert(coll, data)
+//opers.Insert(coll, data)
 //opers.SelectAll(coll)
 //opers.DeleteById(ObjectID, coll, "5b0520412b966c0d9cd900af")
+/*
 opers.SelectAndLimit (coll,function (data) {            
     //console.log("SAL")
     console.log(data)
 })
+*/
     // pod zmienną widoczną na zewnątrz    
     _db = db;
 })
