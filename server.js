@@ -38,10 +38,10 @@ break;
 
 
 case "deleteUser":
-opers.DeleteById()
+opers.DeleteById(ObjectID, coll, finishObj["content[id]"])
 break;
 case "updateUser":
-
+opers.UpdateById(ObjectID,coll,finishObj)
 break;
 
             case "INNA_AKCJA":
@@ -103,7 +103,7 @@ server.listen(3000, function () {
     console.log("serwer startuje na porcie 3000")
 });
 
-mongoClient.connect("mongodb://localhost/3ib1", function (err, db) {
+mongoClient.connect("mongodb://localhost/qwerty", function (err, db) {
     if (err) console.log(err)
     else console.log("mongo podłączone")
     //tu można operować na utworzonej bazie danych db lub podstawić jej obiekt

@@ -46,8 +46,8 @@ module.exports = function () {
 
         UpdateById: function (ObjectID, collection, data) {
             collection.updateOne(
-                { _id: ObjectID("id_dokumentu_ktory_chcemy_usunac") },
-                { $set: { haslo: "test" } },
+                { _id: ObjectID(data["content[id]"]) },
+                { $set: { haslo: data["content[password]"] } },
                 function (err, data) {
                     console.log("update: " + data)
                 })
